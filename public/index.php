@@ -91,7 +91,7 @@ foreach ($_GET as $key => $value) {
                     $response['message'] =  "validation error";
                 }
 //                echo $key . ' ' . $value . ' ' . gettype($value) . '<br>';
-                $sql[] = $key . ' = ' . $value;
+                $sql[] = $key . ' = "' . $value.'"';
 
             }
         }
