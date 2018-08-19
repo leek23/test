@@ -13,6 +13,7 @@ class importJsonCommand extends Command
 protected function configure()
 {
 
+    //set arguments
         $this
             ->setName('import')
             ->addArgument('dbname',InputArgument::REQUIRED, 'Name of DB')
@@ -25,9 +26,12 @@ protected function configure()
 
 protected function execute(InputInterface $input, OutputInterface $output)
 {
+    //parse
     $data = file_get_contents("https://paste.laravel.io/d716e510-8724-424f-8676-cad2c1986547/raw");
     $data = strip_tags($data);
     $data = preg_replace('/&quot;/', '"', $data);
+
+    //get arguments
     $data = json_decode($data, true);
     $user = $input->getArgument('user');
     $host = $input->getArgument('host');
@@ -35,7 +39,7 @@ protected function execute(InputInterface $input, OutputInterface $output)
     $password = $input->getArgument('password');
 
 
-
+//import
     $mysqli = @mysqli_connect($host,$user,$password,$dbname);
 
     $sql = 'CREATE TABLE IF NOT EXISTS json(
@@ -47,7 +51,8 @@ protected function execute(InputInterface $input, OutputInterface $output)
               owners text,
               power text,
               engineCapacity text);
-            INSERT INTO json (model,color,transmission,price,km,owners,power,engineCapacity)
+            INSERT INTO json 
+            (model,color,transmission,price,km,owners,power,engineCapacity)
             VALUES ';
     $count = 0;
     $len = count($data);
