@@ -1,1 +1,1 @@
-php bin/console import <arguments>
+php bin/console import "arguments"
